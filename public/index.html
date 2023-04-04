@@ -10,71 +10,21 @@
 </head>
 <body class="container">
 
-    <h1 class="mt-5">SmallChat</h1>
+    <h1 class="mt-5">Access denied</h1>
     <hr>
-
-    <form id="chatForm">
-        <div class="row">
-            <div class="col-8">
-                <input type="text" id="txtMessage" placeholder="Message" class="form-control">
-            </div>
-
-            <div class="col-4">
-                <button type="submi" class="btn btn-primary">
-                    Send
-                </button>
-            </div>
-        </div>
-    </form>
-
-    <div class="row">
-        <div class="col">
-            <ul id="messages" class="mt-2"></ul>
-        </div>
-    </div>
-
-
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.6.1/socket.io.js" integrity="sha512-xbQU0+iHqhVt7VIXi6vBJKPh3IQBF5B84sSHdjKiSccyX/1ZI7Vnkt2/8y8uruj63/DVmCxfUNohPNruthTEQA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <script>
-        const socket = io('https://react-socket-production.up.railway.app/');
+        // Connection with socket server
+        const socket = io('http://localhost:8080');
 
-        // DOM elements
-        const form = document.querySelector('#chatForm');
-        const messages = document.querySelector('#messages');
-        const txtMessage = document.querySelector('#txtMessage');
-
-        form.addEventListener( 'submit', event => {
-            event.preventDefault();
-
-            const msg = txtMessage.value;
-
-            socket.emit( 'client-message', { msg } );
-        });
-
+        // To emit
+        // socket.emit('client-message', data => {})
 
         socket.on( 'server-message', data => {
-            
-            messages.innerHTML += `
-                <li>${ data.msg }</li>
-            `;
-
+            // Callback to execute
         });
-
-
-        // socket.on('welcome-message', ( data ) => {
-        //     console.log( data );
-        // });
-
-
-        // setTimeout(() => {
-        //     // Emit event
-        //     socket.emit('client-message', {
-        //         msg: 'client',
-        //         name: 'Chuli'
-        //     });
-        // }, 2000);
 
     </script>
 
