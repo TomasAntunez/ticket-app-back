@@ -18,11 +18,14 @@ class Server {
 
         // Sockets config
         this.io = socketio( this.server, { /* settings */ } );
+
+        // Initialize sockets
+        this.sockets = new Sockets( this.io );
     }
 
-    configureSockets() {
-        new Sockets( this.io );
-    }
+    // configureSockets() {
+    //     new Sockets( this.io );
+    // }
 
     middlewares() {
         // Display public directory
@@ -30,14 +33,18 @@ class Server {
 
         // CORS
         this.app.use( cors() );
+
+        this.app.get( '/last-tickets', (req, res) => {
+            res.json({
+                ok: true,
+                last: this.sockets.ticketList.lastThirteen
+            })
+        });
     }
 
     execute() {
         // Initialize Middlewares
         this.middlewares();
-
-        // Initialize sockets
-        this.configureSockets();
 
         // Initialize Server
         this.server.listen( this.port, () => {
